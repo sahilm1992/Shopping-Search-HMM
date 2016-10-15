@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Speech Shopping Cart</title>
+  <meta charset="utf-8">
+ <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="bootstrap.min.css">
+
+<script>
+	
+function loadDoc() {
+  var xhttp = new XMLHttpRequest();
+  
+	//alert("s");
+  xhttp.onreadystatechange = function()
+  {
+    if (xhttp.readyState == 4 && xhttp.status == 200)
+    {
+	
+	var text = xhttp.responseText;
+	//text = text.replace("'","");
+	text=text.trim();
+	//alert(text);
+	var text1=text.charAt(1);
+	//alert(text1);
+
+ var recButton= document.getElementById("searchButton");
+ recButton.innerHTML="Search";
+ recButton.disabled=false;
+ 
+	//alert(text1);
+		filter(text1);
+		//alert(text1);
+	//alert(xhttp.responseText);
+    //  document.getElementById("serverout").innerHTML = xhttp.responseText;
+    }
+  };
+     var userName = document.getElementById("userName").value;
+
+ var recButton= document.getElementById("searchButton");
+ recButton.innerHTML="WAIT";
+ recButton.disabled=true;
+ 
+  xhttp.open("GET", "http://localhost/Speech_Process/Debug/speecht2.py?mode=5&userName="+userName, true);
+  xhttp.send();
+
+ 
+}
+
+var found =0;
+
+
+function changeButtonName()
+{
+ var recContB= document.getElementById("recordCont");
+ recContB.innerHTML="Wait";
+ recContB.disabled=true;
+ 
+}
+
+function dummy()
+
+{
+setTimeout(changeButtonName , 2900);
+
+}
+
+
+function contRecord()
+{
+
+//alert("e");
+var xhttp = new XMLHttpRequest();
+  
+	//alert("s");
+  xhttp.onreadystatechange = function()
+  {
+    if (xhttp.readyState == 4 && xhttp.status == 200)
+    {
+	
+	var text = xhttp.responseText;
+	//text = text.replace("'","");
+	text=text.trim();
+	//alert(text);
+	var text1=text.charAt(1);
+	//alert(text1);
+	//alert(text1);
+	if(parseInt(text1)!=9)
+			{
+			found =1;
+			filter(text1);
+			}
+ var recContB= document.getElementById("recordCont");
+ recContB.innerHTML="Speak";
+ recContB.disabled=false;
+ contRecord();
+ return;	
+		//alert(text1);
+	//alert(xhttp.responseText);
+    //  document.getElementById("serverout").innerHTML = xhttp.responseText;
+    }
+  };
+     var userName = document.getElementById("userName").value;
+
+ var recContB= document.getElementById("recordCont");
+ recContB.innerHTML="Speak";
+ recContB.disabled=true;
+ 
+  xhttp.open("GET", "http://localhost/Speech_Process/Debug/speecht2.py?mode=5&userName="+userName, true);
+  xhttp.send();
+  dummy();
+
+ 
+
+
+
+}
+
+
+
+function recCont()
+{
+contRecord();
+
+}
+
+
+function resetDoc()
+{
+location.reload();
+}
+var jeans=0,syrup=1,watch=2,battery=4, phone=3,shoes=5,ball=6,mouse=7,tv=8;
+
+var objTypes =[];
+objTypes[battery]="BATTERY";
+objTypes[phone]="PHONE";
+objTypes[syrup]="SYRUP";
+objTypes[mouse]="MOUSE";
+objTypes[jeans]="JEANS";
+objTypes[shoes]="SHOES";
+objTypes[ball]="BALL";
+objTypes[watch]="WATCH";
+objTypes[tv]="TV";
+
+var  numItems = objTypes.length;
+
+var sample = new Array();
+function createOb()
+{
+	var id=0;
+	sample = [];
+	sample[phone] = new Array();
+	var obj = new Object();
+	obj.id=id++;
+	obj.name="Asus Zenfone 8Gb Tablet";
+	obj.type=phone;
+	obj.Desc=" QualComm Tablet";
+	obj.img ="mobile1.jpg";
+	obj.price =9000;
+	obj.availability =1;
+	
+	sample[phone].push(obj);
+	
+	obj = new Object();
+	obj.id=id++;
+	obj.name="Asus Nexus 7 16Gb Tablet";
+	obj.type=phone;
+	obj.Desc=" Octa Core QualComm Tablet";
+	obj.img ="mobile2.jpg";
+	obj.price =15000;
+	obj.availability =1;
+	
+	sample[phone].push(obj);
+
+
+	obj = new Object();
+	obj.id=id++;
+	obj.name="Google Android Nexus 7  2013 16Gb Tablet";
+	obj.type=phone;
+	obj.Desc=" Octa Core QualComm Tablet";
+	obj.img ="mobile2.jpg";
+	obj.price =15000;
+	obj.availability =0;
+	
+	sample[phone].push(obj);
+
+
+
+	sample[watch] = new Array();
+	
+	obj = new Object();
+	obj.id=id++;
+	obj.name="Rado Watch";
+	obj.type=watch;
+	obj.Desc="Consists light";
+	obj.img ="watch1.jpg";
+	obj.price =4510;
+	obj.availability =0;
+	
+	sample[watch].push(obj);
+	
+	obj = new Object();
+	obj.id=id++;
+	obj.name="Titan HD ";
+	obj.type=watch;
+	obj.Desc=" A series";
+	obj.img ="watch2.jpg";
+	obj.price =2510;
+	obj.availability =1;
+	
+	sample[watch].push(obj);
+	
+	
+	obj = new Object();
+	obj.id=id++;
+	obj.name="Titan HD ";
+	obj.type=watch;
+	obj.Desc=" A series";
+	obj.img ="watch2.jpg";
+	obj.price =3510;
+	obj.availability =1;
+	
+	sample[watch].push(obj);
+	
+	
+	sample[tv] = new Array();
+
+	obj = new Object();
+	obj.id=id++;
+	obj.name="SONY PLASMA HD";
+	obj.type=tv;
+	obj.Desc=" With HDMI , VGA Support";
+	obj.img ="tv1.jpg";
+	
+	obj.price =195999;
+	obj.availability =1;
+	sample[tv].push(obj);
+	
+	obj = new Object();
+	obj.id=id++;
+	obj.name="3D LED TV";
+	obj.type=tv;
+	obj.Desc=" HD TV 1920x 1200";
+	obj.img ="tv2.jpg";
+	
+	obj.price =245444;
+	obj.availability =0;
+	sample[tv].push(obj);
+	
+	
+	
+	sample[jeans] = new Array();
+	var obj = new Object();
+	obj.id=id++;
+	obj.name="Levis Jeans";
+	obj.type=jeans;
+	obj.Desc=" Denim Jeans , Blue Color";
+	obj.img ="jeans1.jpg";
+	obj.price =4500;
+	obj.availability =1;
+	
+	sample[jeans].push(obj);
+	
+	
+	
+		var obj = new Object();
+	obj.id=id++;
+	obj.name="Monte Carlo Jeans";
+	obj.type=jeans;
+	obj.Desc=" Denim Jeans , Blue Color";
+	obj.img ="jeans2.jpg";
+	obj.price =2500;
+	obj.availability =0;
+	
+	sample[jeans].push(obj);
+	
+	
+	
+	
+	sample[syrup] = new Array();
+	var obj = new Object();
+	obj.id=id++;
+	obj.name="Cough Syrup";
+	obj.type=syrup;
+	obj.Desc=" For all cough related problems ";
+	obj.img ="syrup1.jpg";
+	obj.price =45;
+	obj.availability =1;
+	
+	sample[syrup].push(obj);
+	
+	
+	var obj = new Object();
+	obj.id=id++;
+	obj.name="Cough and Cold Syrup";
+	obj.type=syrup;
+	obj.Desc=" For all cold cough related problems ";
+	obj.img ="syrup2.jpg";
+	obj.price =251;
+	obj.availability =0;
+	
+	sample[syrup].push(obj);
+	
+	
+	
+	
+	sample[battery] = new Array();
+	var obj = new Object();
+	obj.id=id++;
+	obj.name="Nippo ";
+	obj.type=battery;
+	obj.Desc=" Extra Power ";
+	obj.img ="battery1.jpg";
+	obj.price =245;
+	obj.availability =1;
+	
+	sample[battery].push(obj);
+	
+	
+	
+	
+		
+	var obj = new Object();
+	obj.id=id++;
+	obj.name="Duracell";
+	obj.type=battery;
+	obj.Desc=" 2x power ";
+	obj.img ="battery2.jpg";
+	obj.price =215;
+	obj.availability =1;
+	
+	sample[battery].push(obj);
+	
+	
+		
+	var obj = new Object();
+	obj.id=id++;
+	obj.name="Energiser";
+	obj.type=battery;
+	obj.Desc="Long lasting ";
+	obj.img ="battery3.jpg";
+	obj.price =195;
+	obj.availability =0;
+	
+	sample[battery].push(obj);
+}
+
+function filter(type)
+{
+//alert(type);
+	var out = "<center><ul>";
+	out+="<h3>Search Results</h3></h3>";
+if(sample[type])
+		{
+				
+//alert(sample[type].length);
+		for(var i=0;i<sample[type].length;i++)
+				{
+	//				alert(1);
+					 out+='<div class="row" align=center>';
+						out+='<div class="col-sm-4" align=center> ' +'<img src="' + '' + sample[type][i].img + '" width="150" height="180">' +'</div>';
+
+						out+='<div class="col-sm-3"  align=center> ' ;
+						out+='<ul class="list-group">';
+						 out+='<li class="list-group-item">' +sample[type][i].name+'</li>';
+						out+='<li class="list-group-item"> Price :' +sample[type][i].price+'</li>';
+						
+						out+='<li class="list-group-item"> Description :' +sample[type][i].Desc+'</li>';
+							var availString = sample[type][i].availability==1?"Yes":"No";
+							out+='<li class="list-group-item">  Available ' +availString+'</li>';
+
+						out+='</ul>';
+						out+="</div>";
+					out+="</div><br>";
+				}
+				
+//					alert(out);
+
+				out += "</ul></center>";
+				document.getElementById("output").innerHTML = out;
+		}
+		else
+		{
+			out += "  NO MATCH FOUND"+"</ul></center>";
+			document.getElementById("output").innerHTML =out;
+
+		}
+
+				
+	
+	
+}
+
+function printAll()
+{
+	
+}
+
+function bodyonbeg()
+{
+	createOb();
+	/*
+	var staticstr = '<div id="container"><div id="jumbotron">';
+	staticstr += '<div id="demo"><center><h1>Speech Shopping Cart</h1></center></div>';
+	
+	staticstr += '<center><button type="button" onclick="loadDoc()">Search</button>';
+	staticstr += '<button type="button" onclick="resetDoc()">Reset</button></center>';
+	staticstr += '<br><center><button id="cart" onclick="createOb()">Show Cart</button></center>';
+	
+	staticstr += '<div id="output"><center></center></div>';
+	
+	
+	for (i=0; i< numItems;i++)
+	{
+		var ObjectArr = sample[i];
+		if(ObjectArr != null)
+		{
+			staticstr+='<div class="container">	<div class="row">';
+			
+			for (j=0;j < ObjectArr.length;j++)
+			{
+				
+				var obj = ObjectArr[j];
+				staticstr += '<div class="col-sm-2"><h3>';
+				staticstr += obj.name;
+				staticstr += '</h3>';
+				staticstr += '<p>';
+				staticstr += obj.Desc;
+				var s =(j+1).toString();
+				staticstr += '</p></div><div class="col-sm-3"><ul id="scroller' + s +'">';
+				staticstr += '<li><img src="' + 'images//' + obj.img + '" width="150" height="180"></li>;';
+				staticstr += '<li>' + obj.price + '</li>';
+				var avl = (obj.availability == 1)?"Available":"Not available";
+				staticstr += '<li>'+avl+'</li>';
+				staticstr += '</ul></div>';
+				
+				
+			}
+		staticstr += '</div></div>';
+		
+		}
+	}
+	
+staticstr+='<div class="container"><div class="row"><div class="col-sm-3">';
+staticstr+='<h3>Watches</h3>';
+staticstr+='        <p>Titan, Fastrack, Timex watches</p>';
+staticstr+='        </div>';
+staticstr+='		<div class="col-sm-3">';
+staticstr+='		<ul id="scroller1">';
+staticstr+='		<li><img src="Watch1.jpg" width="130" height="180"></li>';
+staticstr+='		<li><img src="Watch2.jpg" width="180" height="180"></li>';
+staticstr+='		<li><img src="Watch3.jpg" width="150" height="180"></li>';
+staticstr+='		</ul>';
+staticstr+='		</div>';
+staticstr+='	</div>	';
+staticstr+='</div>';
+		document.getElementById("boddd").innerHTML = staticstr;
+	*/
+	//alert('ALERT!!');
+}
+
+</script>
+	<!----
+	<script type="text/javascript" src="jquery-1.10.2.js"></script>
+    <script type="text/javascript" src="jquery.touchSwipe.js"></script>
+    <script type="text/javascript" src="jquery.horizonScroll.js"></script> 					-->
+    <script type="text/javascript" src="jquery.js"></script>
+    
+    
+    <script type="text/javascript" src="jquery.simplyscroll.js"></script>
+<link rel="stylesheet" href="jquery.simplyscroll.css" media="all" type="text/css">
+
+	<script type="text/javascript">
+	(function($) {
+		$(function() {
+			$("#scroller1").simplyScroll();
+			$("#scroller2").simplyScroll();
+			$("#scroller3").simplyScroll();
+			$("#scroller4").simplyScroll();
+			$("#scroller5").simplyScroll();
+
+
+			$("#scroller6").simplyScroll();
+
+			$("#scroller7").simplyScroll();
+			});
+	})(jQuery);
+	</script>
+
+
+</head>
+
+
+
+
+<body id="boddd" onload="bodyonbeg()">
+	
+	<div id="container"><div id="jumbotron">
+	<div id="demo"><center><h1>Speech Shopping Cart</h1></center></div>
+	<center><h4>Project is Trained for : watch , syrup , jeans , phone and battery</h4></center>
+	<center>
+		<button type="button"  id="recordCont" onclick="recCont()">Click for continuous recording</button>
+<br>
+		<br><a href = "addNew.html" > Train For new user</a>
+<br><br>
+	<button type="button"  id="searchButton" onclick="loadDoc()">Search Items</button>
+	<br>
+<br>
+	<center><input type="text" id="userName" value ="User"></center>
+
+	<div id="output"><center></center></div>
+	
+	<br><br>
+	<div id="serverout"><center></center></div>
+	<br><br>
+<!--
+<div class="container">
+    <div class="row">
+        
+        <div class="col-sm-3">
+        <h3>Watches</h3>
+        <p>Titan, Fastrack, Timex watches</p>
+        </div>
+        
+        <div class="col-sm-3">
+        <h3>Furniture</h3>
+        <p>Sofas, Beds, Dining Tables and more</p>
+        </div>
+        
+        
+    </div>
+</div>
+-->
+<br><br>
+
+
+<div class="container" align=center>
+	<div class="row">
+		
+		<div class="col-sm-3">
+        <h3>Mobiles</h3>
+        <p>Samsung, LG, Asus mobile phones</p>
+        </div>
+		
+		
+		<div class="col-sm-3" align=center>
+		<ul id="scroller1">
+		<li><div><img src="Mobile1.jpg" width="150" height="180">Rs.5164</div></li>
+		<li><div><img src="Mobile2.jpg" width="120" height="180">Rs.35749</div></li>
+		<li><div><img src="Mobile3.jpg" width="120" height="180">Rs10399</div></li>
+		</ul>
+		</div>
+	</div>
+	
+</div>
+
+
+
+<div class="container" align=center>
+	<div class="row">
+		
+		<div class="col-sm-3">
+        <h3>Battery</h3>        
+        <p>Duracell , Nippo , Energiser</p>
+        </div>
+		
+		
+		<div class="col-sm-3">
+		<ul id="scroller7">
+		<li><img src="battery1.jpg" width="200" height="180">Rs.245</li>
+		<li><img src="battery2.jpg" width="220"	 height="180">Rs.215</li>
+		<li><img src="battery3.jpg" width="230" height="180">Rs.195</li>
+		</ul>
+		</div>
+	</div>	
+</div>
+
+
+
+<div class="container" align=center>
+	<div class="row">
+		
+		<div class="col-sm-3">
+        <h3>Jeans</h3>
+        <p>ReadyMade Modern Jeans</p>
+        </div>
+		
+		
+		<div class="col-sm-3">
+		<ul id="scroller5">
+		<li><img src="jeans1.jpg" width="130" height="180">Rs 4500</li>
+		<li><img src="jeans2.jpg" width="180" height="180">Rs.2500</li>
+	</ul>
+		</div>
+	</div>	
+</div>
+
+<div class="container" align=center>
+	<div class="row">
+		<div class="col-sm-3">
+        <h3>Laptops</h3>
+        <p>Dell, Toshiba, HP, Acer Laptops</p>
+        </div>
+		
+		<div class="col-sm-3">
+		<ul id="scroller2">
+		<li><img src="Laptop1.jpg" width="210" height="180">Rs.38999</li>
+		<li><img src="Laptop2.jpg" width="250" height="180">Rs.65450</li>
+		<li><img src="Laptop3.jpg" width="230" height="180">Rs.45759</li>
+		</ul>
+		</div>
+	</div>	
+</div>
+
+
+
+<div class="container" align=center>
+	<div class="row">
+		
+		<div class="col-sm-3">
+        <h3>Televisions</h3>        
+        <p>Sony, Samsung, Panasonic Televisions</p>
+        </div>
+		
+		
+		<div class="col-sm-3">
+		<ul id="scroller3">
+		<li><img src="TV1.jpg" width="250" height="180">Rs.245444</li>
+		<li><img src="TV2.jpg" width="250" height="180">Rs.215999</li>
+		<li><img src="TV3.jpg" width="250" height="180">Rs.195999</li>
+		</ul>
+		</div>
+	</div>	
+</div>
+
+
+
+<div class="container" align=center>
+	<div class="row">
+		
+		<div class="col-sm-3">
+        <h3>Watches</h3>
+        <p>Titan, Fastrack, Timex watches</p>
+        </div>
+		
+		
+		<div class="col-sm-3">
+		<ul id="scroller4">
+		<li><img src="Watch1.jpg" width="130" height="180">Rs.4540</li>
+		<li><img src="Watch2.jpg" width="180" height="180">Rs.2510</li>
+		<li><img src="Watch3.jpg" width="150" height="180">Rs.3510</li>
+		</ul>
+		</div>
+	</div>	
+</div>
+
+
+<div class="container" align=center>
+	<div class="row">
+		
+		<div class="col-sm-3">
+        <h3>Syrups</h3>
+        <p>For cough and cold</p>
+        </div>
+		
+		
+		<div class="col-sm-3">
+		<ul id="scroller6">
+		<li><img src="syrup1.jpg" width="130" height="180">Rs 45</li>
+		<li><img src="syrup2.jpg" width="180" height="180">Rs.251</li>
+	</ul>
+		</div>
+	</div>	
+</div>
+
+
+ 
+
+
+
+
+</body>
+</html>

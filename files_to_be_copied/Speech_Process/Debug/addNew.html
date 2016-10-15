@@ -1,0 +1,192 @@
+<!-- addNew Data-->
+
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>Speech Shopping Cart</title>
+  <meta charset="utf-8">
+
+
+<script>
+	
+	
+	
+var recNum=1;
+
+
+var sounds=[];
+var curRecSound=0;
+
+
+
+
+function trainHMM()
+{
+alert(" Your Model will be trained in a few minutes.");
+ var xhttp = new XMLHttpRequest();
+  
+	//alert("s");
+  xhttp.onreadystatechange = function()
+  {
+    if (xhttp.readyState == 4 && xhttp.status == 200)
+    {
+	// var trainHMM= document.getElementById("trainHMM");
+	//trainHMM.value="train HMM";
+	//trainHMM.disabled=false;
+
+	var text = xhttp.responseText;
+	alert(" STATUS OF TRAINING : " + text);
+	var trainButton= document.getElementById("trainHMM");
+	trainButton.value="train HMM";
+	trainButton.disabled=false;
+    }
+  };
+   var userName = document.getElementById("userName").value;
+
+  xhttp.open("GET", "http://localhost/Speech_Process/Debug/speecht2.py?mode=11&userName="+userName, true);
+  xhttp.send();
+// var trainHMM= document.getElementById("trainHMM");
+ //trainHMM.value="WAIT";
+ //trainHMM.disabled=true;
+ 	var trainButton= document.getElementById("trainHMM");
+	trainButton.value="train HMM";
+	trainButton.disabled=true;
+
+}
+
+var totalRec=31;
+var found	 =0;
+function loadDoc() {
+  var xhttp = new XMLHttpRequest();
+  
+	//alert("s");
+  xhttp.onreadystatechange = function()
+  {
+    if (xhttp.readyState == 4 && xhttp.status == 200)
+    {
+	 var resp = xhttp.responseText;
+	 var recButton= document.getElementById("recordNext");
+	 recButton.value="Record";
+	 recButton.disabled=false;
+ 
+
+	//alert(resp +" is recorded , press Record next to continue");
+	var labelElem= document.getElementById("labelRec");
+	labelElem.innerHTML =" Rec " + (recNum) + " / " + totalRec;
+	if(recNum==totalRec+1 )
+		  {
+		  	labelElem.innerHTML =" Rec " + "1" + " / " + totalRec;
+		  curRecSound++;
+		  if(curRecSound ==sounds.length-1)
+			{
+			alert(" Congrats , Recordings Done");
+			trainHMM();
+			return;
+			
+			}
+		   var wordElem= document.getElementById("Word");
+		   wordElem.value=sounds[curRecSound];
+
+		  alert("Record for "+ sounds[curRecSound]);
+		recNum=1;
+		  }
+
+	}
+  }
+  //10 means  Record new user
+ var userName = document.getElementById("userName").value;
+ var word= document.getElementById("Word").value;
+ var url="http://localhost/Speech_Process/Debug/speecht2.py?mode=10&userName="+userName+"&Word="+word+"&recNum="+recNum++;
+
+  
+  xhttp.open("GET",url , true);
+ xhttp.send();
+ var recButton= document.getElementById("recordNext");
+ recButton.value="WAIT";
+ recButton.disabled=true;
+ 
+ 
+}
+function getSoundNames() {
+  var xhttp = new XMLHttpRequest();
+  
+	//alert("s");
+  xhttp.onreadystatechange = function()
+  {
+    if (xhttp.readyState == 4 && xhttp.status == 200)
+    {
+	
+	var text = xhttp.responseText;
+	//text = text.replace("'","");
+	//text=text.trim();
+	//alert(text);
+	sounds=text.split(' ');
+	//alert(sounds[0])
+	//alert(xhttp.responseText);
+      document.getElementById("Word").value = sounds[0];
+	  
+  var labelElem= document.getElementById("labelRec");
+labelElem.innerHTML =" Rec " + "1" + " / " + totalRec;
+    }
+  };
+  xhttp.open("GET", "http://localhost/Speech_Process/Debug/speecht2.py?needFile=1", true);
+  xhttp.send();
+  
+}
+
+function resetDoc()
+{
+
+location.reload();
+recNum=0;
+}
+
+
+
+</script>
+	<!----
+	<script type="text/javascript" src="jquery-1.10.2.js"></script>
+    <script type="text/javascript" src="jquery.touchSwipe.js"></script>
+    <script type="text/javascript" src="jquery.horizonScroll.js"></script> 					-->
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    
+    
+    <script type="text/javascript" src="jquery.simplyscroll.js"></script>
+<link rel="stylesheet" href="jquery.simplyscroll.css" media="all" type="text/css">
+
+	<script type="text/javascript">
+	(function($) {
+		$(function() {
+			//alert();
+		});
+	})(jQuery);
+	</script>
+
+
+</head>
+
+
+
+
+<body id="boddd" onload="getSoundNames()">
+
+	<div id="container"><div id="jumbotron">
+	<div id="demo"><center><h1>Speech Shopping Cart : Add User Page</h1></center></div>
+<center>	<a href ="addNewFileUpload.html" > Train by uploading files </a></center>
+</br>
+	<center><button type="button" id="recordNext" onclick="loadDoc()">Record next 	</button>
+&nbsp &nbsp &nbsp	
+
+	<input type="text" id="userName" value ="UserName">
+	<input type="text" id="Word" value ="audioSampleName">
+	<label id="labelRec" >Rec Num : 1 </label>
+	<br><br>
+	<center> After training , click on TrainHMM</center><br>
+	<center><button type="button" id="trainHMM" onclick="trainHMM()">Train HMM</button><br><br>
+	
+		<h3> WARNING : Do 30 recording for each sound else your model will Fail </h3>
+
+
+</body>
+</html>

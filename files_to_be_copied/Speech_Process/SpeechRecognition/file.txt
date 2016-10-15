@@ -1,0 +1,12 @@
+*********************************************
+Configuring the Sound Hardware:
+*********************************************
+Start Recording...........
+Stop Recording.
+ 
+ Cis for ..\Debug\Output\temp\tempCi1.txt  
+ Obs tempObservation.txt
+jeans
+search
+Syrup
+watch

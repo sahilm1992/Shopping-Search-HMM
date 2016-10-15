@@ -1,0 +1,3 @@
+piFile:hmmMatrices//pi.txt
+aFile:hmmMatrices//A.txt
+bFile:hmmMatrices//B.txt

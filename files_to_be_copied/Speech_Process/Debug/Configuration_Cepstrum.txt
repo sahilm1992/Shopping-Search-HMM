@@ -1,0 +1,3 @@
+frameSize:320
+cepStrumP:12
+normalValue:15000

@@ -1,0 +1,15 @@
+﻿Build started 12/2/2015 4:42:28 PM.
+     1>Project "C:\wamp\www\Speech_Process\SpeechRecognition\SpeechRecognition.vcxproj" on node 2 (Build target(s)).
+     1>Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\wamp\www\Speech_Process\Debug\SpeechRecognition.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\wamp\www\Speech_Process\Debug\SpeechRecognition.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\wamp\www\Speech_Process\Debug\SpeechRecognition.lib" /MACHINE:X86 Debug\cepstrum.obj
+         Debug\hmm.obj
+         Debug\kMeans.obj
+         Debug\SpeechRecog.obj
+         Debug\SpeechRecognition.obj
+         Debug\stdafx.obj
+         SpeechRecognition.vcxproj -> C:\wamp\www\Speech_Process\Debug\SpeechRecognition.exe
+     1>Done Building Project "C:\wamp\www\Speech_Process\SpeechRecognition\SpeechRecognition.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:00.31

@@ -1,0 +1,104 @@
+
+<script>
+	
+	
+	
+var recNum=1;
+var totalRec=31;
+
+var sounds=[];
+var curRecSound=0;
+
+
+
+
+function trainHMM()
+{
+alert(" Your Model will be trained in a few minutes.");
+ var xhttp = new XMLHttpRequest();
+  
+	//alert("s");
+  xhttp.onreadystatechange = function()
+  {
+    if (xhttp.readyState == 4 && xhttp.status == 200)
+    {
+	// var trainHMM= document.getElementById("trainHMM");
+	//trainHMM.value="train HMM";
+	//trainHMM.disabled=false;
+
+	var text = xhttp.responseText;
+	alert(" STATUS OF TRAINING : " + "Done");
+    }
+  };
+   var userName = document.getElementById("userNm").value;
+
+  xhttp.open("GET", "http://localhost/Speech_Process/Debug/speecht2.py?mode=11&userName="+userName, true);
+  xhttp.send();
+// var trainHMM= document.getElementById("trainHMM");
+ //trainHMM.value="WAIT";
+ //trainHMM.disabled=true;
+
+}
+
+
+
+function getSoundNames() {
+  var xhttp = new XMLHttpRequest();
+  
+	//alert("s");
+  xhttp.onreadystatechange = function()
+  {
+    if (xhttp.readyState == 4 && xhttp.status == 200)
+    {
+	
+	var text = xhttp.responseText;
+	//text = text.replace("'","");
+	//text=text.trim();
+	//alert(text);
+	sounds=text.split(' ');
+	//alert(sounds[0])
+	//alert(xhttp.responseText);
+      document.getElementById("Word").value = sounds[0];
+	  
+  var labelElem= document.getElementById("labelRec");
+labelElem.innerHTML =" Rec " + "1" + " / " + totalRec;
+    }
+  };
+  xhttp.open("GET", "http://localhost/Speech_Process/Debug/speecht2.py?needFile=1", true);
+  xhttp.send();
+  
+}
+
+
+
+
+</script>
+
+
+<body id="boddd" onload="getSoundNames()">
+
+	<div id="container"><div id="jumbotron">
+	<div id="demo"><center><h1>Speech Shopping Cart : Add User Page</h1></center></div>
+	
+		<center>
+	<br>
+		<br>
+	Select 30 files for all sounds<br>
+<br>
+	<form enctype="multipart/form-data" action="http://localhost/Speech_Process/Debug/upload_train.py" method="POST">
+	<input type="text" id="userNm" name ="userNm" value ="UserName">
+<br>
+	<input type="file" id ="file" name="file" multiple="" />
+	<input type="submit" value="Upload" name="submit" />
+
+</form>
+<br>	<center><button type="button" id="trainHMM2" onclick="trainHMM()">Train HMM</button><br><br>
+
+<br>	
+	<div id="output"><center></center></div>
+	<h4>Upload files as watch1.txt to watch30.txt. Similary for syrup, jeans , phone and battery. Then click on train HMM</h4>
+		<h3> WARNING : Do 30 recording for each sound else your model will Fail </h3>
+	
+	<br><br>
+	<div id="serverout"><center></center></div>
+	<br><br>
